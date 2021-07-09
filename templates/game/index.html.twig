@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Play the game here!</h1>
+
+    You earned {{ app.user.points }} points!
+
+    <form method="post">
+        <button class="btn btn-lg btn-primary" type="submit">Play!</button>
+    </form>
+</div>
+{% endblock %}

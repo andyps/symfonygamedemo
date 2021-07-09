@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Game Info</h1>
+    <div>
+        You've won "{{ game.prize.name }}"!
+        {% if game.status == constant('STATUS_REJECTED', game) %}
+            But you've rejected to receive the prize.
+        {% elseif game.status == constant('STATUS_APPROVED', game) %}
+            {% if game.isConvertedToPoints %}
+                But you decided to get profile points instead.
+                You will receive {{ game.points }}.
+            {% endif %}
+            We will process your result soon and you will receive the prize!
+        {% endif %}
+
+        <div>No further actions required from you.</div>
+    </div>
+</div>
+{% endblock %}

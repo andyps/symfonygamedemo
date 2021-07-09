@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Game Result</h1>
+    <div>
+        {% if not game.isLost %}
+            Congratulations! You won!
+            You can get this thing: <b>"{{ game.prize.name }}"</b>!
+            <form method="post" action="{{ path('approveGamePrize', {id: game.id}) }}">
+                <button class="btn btn-lg btn-primary" type="submit">Cool! Give me the prize!</button>
+            </form>
+            <form method="post" action="{{ path('rejectGamePrize', {id: game.id}) }}">
+                <button class="btn btn-lg btn-primary" type="submit">Hmm, I don't want this</button>
+            </form>
+            {% if isConvertable %}
+                <form method="post" action="{{ path('convertGamePrize', {id: game.id}) }}">
+                    <button class="btn btn-lg btn-primary" type="submit">Convert to points</button>
+                    You will get {{ potentialPoints }} points.
+                </form>
+            {% endif %}
+        {% else %}
+            You lost :(
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

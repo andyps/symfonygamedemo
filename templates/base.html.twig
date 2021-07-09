@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Demo - {% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+
+        <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        #header-menu ul li { display: inline; border-width: 1px 0px 1px 0px; }
+        #flash-messages { position: absolute; left: 0px; top: 0px; border: 1px solid green; background: lightblue; width: 100%; }
+        </style>
+    </head>
+    <body>
+        <div id="flash-messages">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <header class="header">
+            <nav>
+                <div id="header-menu">
+                    <ul>
+                        <li>
+                            <a href="{{ path('homepage') }}">
+                                Homepage
+                            </a>
+                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                Hello {{ app.user.name|default('Anonymous') }}!
+                            </li>
+                            <li>
+                                <a href="{{ path('game') }}">
+                                    Game
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_logout') }}">
+                                    Logout
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="nav-link" href="{{ path('app_register') }}">
+                                    Register
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_login') }}">
+                                    Login
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>
+                <a href="#">Back to top</a>
+            </p>
+        </footer>
+    </body>
+</html>
